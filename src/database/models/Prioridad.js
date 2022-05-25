@@ -19,7 +19,7 @@ module.exports =(sequelize,dataTypes)=>{
     const Prioridad=sequelize.define(alias,cols,config);
    Prioridad.associate=function(models){
        
-        Prioridad.hasMany(models.Product, { 
+        Prioridad.hasMany(models.Tarea, { 
             as: "prioridad",
             foreignKey: "idPrioridad"
         })

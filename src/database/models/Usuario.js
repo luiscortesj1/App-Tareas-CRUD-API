@@ -1,51 +1,31 @@
 module.exports =(sequelize,dataTypes)=>{
-    const alias= 'Tarea';
+    const alias= 'Usuario';
     const cols={
         id:{
-            type: dataTypes.BIGINT(20),
+            type: dataTypes.INTEGER(11),
             primaryKey: true, 
             allowNull: false,
             autoIncrement: true
         },
-        nombre:{
+        name:{
             type: dataTypes.STRING(255),
             allowNull: false
         },
-        informacion:{
+        email:{
             type: dataTypes.STRING(255),
             allowNull: false
         },
-        fechaCreacion:{
-            type: dataTypes.DATETIME(255),
+        password:{
+            type: dataTypes.STRING(255),
             allowNull: false
-        },
-        fechaModificacion:{
-            type: dataTypes.DATETIME(255),
-            allowNull: false
-        },idPrioridad:{
-            type: dataTypes.INTEGER(11)
-        },
-        idStatus:{
-            type: dataTypes.INTEGER(11)
         }
     }; 
     const config={
-        tableName: 'tareas',
+        tableName: 'usuario',
         timestamps: false
     }
-    const Tarea=sequelize.define(alias,cols,config);
-    Tarea.associate=function(models){
-        Tarea.belongsTo(models.Prioridad,{
-            as:'prioridad',
-            foreignKey:'idPrioridad'
-        })
-        Tarea.belongsTo(models.Status,{
-            as:'status',
-            foreignKey:'idStatus'
-        })
-        
-    }
-   
-    return Tarea;
+    const Usuario=sequelize.define(alias,cols,config);
+
     
-}
+    return Usuario;
+};

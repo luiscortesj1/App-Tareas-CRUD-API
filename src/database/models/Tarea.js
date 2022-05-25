@@ -1,54 +1,51 @@
 module.exports =(sequelize,dataTypes)=>{
-    const alias= 'User';
+    const alias= 'Tarea';
     const cols={
         id:{
-            type: dataTypes.INTEGER(11),
+            type: dataTypes.BIGINT(20),
             primaryKey: true, 
             allowNull: false,
             autoIncrement: true
         },
-        name:{
+        nombre:{
             type: dataTypes.STRING(255),
             allowNull: false
         },
-        lastname:{
-            type: dataTypes.STRING(255)
-        },
-        email:{
+        informacion:{
             type: dataTypes.STRING(255),
             allowNull: false
         },
-        password:{
+        fechaCreacion:{
             type: dataTypes.STRING(255),
-            allowNull: false
+            allowNull: true
         },
-        cellphone:{
-            type: dataTypes.INTEGER(11),
-            allowNull: false
-        },
-        address:{
+        fechaModificacion:{
             type: dataTypes.STRING(255),
-            allowNull: false
+            allowNull: true
+        },idPrioridad:{
+            type: dataTypes.INTEGER(11)
         },
-        image:{
-            type:dataTypes.STRING(255),
-        },
-        idRol:{
+        idStatus:{
             type: dataTypes.INTEGER(11)
         }
     }; 
     const config={
-        tableName: 'users',
+        tableName: 'tareas',
         timestamps: false
     }
-    const User=sequelize.define(alias,cols,config);
-
-    User.associate=function(models){
-        User.belongsTo(models.Rol,{
-            as:'rol',
-            foreignKey:'idRol'
+    const Tarea=sequelize.define(alias,cols,config);
+    Tarea.associate=function(models){
+        Tarea.belongsTo(models.Prioridad,{
+            as:'prioridad',
+            foreignKey:'idPrioridad'
         })
+        Tarea.belongsTo(models.Status,{
+            as:'status',
+            foreignKey:'idStatus'
+        })
+        
     }
-    return User;
+   
+    return Tarea;
     
 }
