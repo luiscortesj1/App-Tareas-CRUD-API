@@ -7,11 +7,11 @@ module.exports =(sequelize,dataTypes)=>{
             allowNull: false,
             autoIncrement: true
         },
-        name:{
+        nombre:{
             type: dataTypes.STRING(255),
             allowNull: false
         },
-        email:{
+        mail:{
             type: dataTypes.STRING(255),
             allowNull: false
         },
@@ -21,7 +21,7 @@ module.exports =(sequelize,dataTypes)=>{
         }
     }; 
     const config={
-        tableName: 'usuario',
+        tableName: 'usuarios',
         timestamps: false
     }
     const Usuario=sequelize.define(alias,cols,config);
