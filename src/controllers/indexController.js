@@ -37,7 +37,7 @@ const controller={
         //const tareas = await db.Tarea.findAll();
         //res.json({tareas});
         try{
-            const tareas = await db.Tarea.findAll();
+            const tareas = await db.Tarea.findAll({include:[{association:'prioridad'},{ association: 'status' }],order:[['idPrioridad']]});
             
             const response={
                 meta:{
@@ -78,12 +78,13 @@ const controller={
     },
     create: async (req, res) => {
         try{
-        const {nombre,informacion,idPrioridad,idStatus}= req.body;
-        const confirm=await db.Tarea.create({
+        const {nombre,informacion,prioridad,status}= req.body;
+       // console.log(req.body)
+        await db.Tarea.create({
             nombre,
             informacion,
-            idPrioridad:parseInt(idPrioridad),
-            idStatus:parseInt(idStatus)})
+            idPrioridad:parseInt(prioridad),
+            idStatus:parseInt(status)})
             const response={
                 "message":"¡Tarea creada!"
             }
@@ -93,15 +94,16 @@ const controller={
             }
     },
     update: async (req, res) => {
-        const {nombre,informacion,idPrioridad,idStatus}= req.body;
+        const {nombre,informacion,prioridad,status}= req.body;
+       //console.log(req.body)
          const time=moment().format('YYYY-MM-DD hh:mm:ss')
          try{
         await db.Tarea.update({
             nombre,
             informacion,
-            idPrioridad:parseInt(idPrioridad),
+            idPrioridad:parseInt(prioridad),
             fechaModificacion:time,
-            idStatus:parseInt(idStatus)},{where: {id:req.params.id}});
+            idStatus:parseInt(status)},{where: {id:req.params.id}});
             const response={
                 "message":"¡Tarea actualizada!"
             }
